@@ -91,7 +91,7 @@
     mode: 0750
   when: vault_version_check.stdout != vault_version
 
-- name: Copy Server Config for Consul
+- name: Copy Server Config for Consul Backend
   template:
     src: vault_consul.hcl.j2
     dest: /etc/vault.d/vault_main.hcl
@@ -101,7 +101,7 @@
     backup: yes
   when: vault_backend == "consul"
 
-- name: Copy Server Config for S3
+- name: Copy Server Config for S3 Backend
   template:
     src: vault_s3.hcl.j2
     dest: /etc/vault.d/vault_main.hcl
