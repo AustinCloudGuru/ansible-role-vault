@@ -91,14 +91,25 @@
     mode: 0750
   when: vault_version_check.stdout != vault_version
 
-- name: Copy Server Config
+- name: Copy Server Config for Consul
   template:
-    src: vault_main.hcl.j2
+    src: vault_consul.hcl.j2
     dest: /etc/vault.d/vault_main.hcl
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
     mode: 0640
     backup: yes
+  when: vault_backend == "consul"
+
+- name: Copy Server Config for S3
+  template:
+    src: vault_s3.hcl.j2
+    dest: /etc/vault.d/vault_main.hcl
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: 0640
+    backup: yes
+  when: vault_backend == "s3"
 
 - name: Check if cap_ipc_lock is set
   shell: |
