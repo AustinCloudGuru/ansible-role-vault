@@ -3,5 +3,10 @@
   service:
     name: vault
     enabled: yes
+
+- name: start vault
+  service:
+    name: vault
     state: started
   when: vault_start|bool
+
