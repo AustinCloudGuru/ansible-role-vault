@@ -2,6 +2,10 @@ storage "s3" {
         bucket = "{{ vault_bucket_name }}"
 }
 
+seal "awskms" {
+    kms_key_id = "{{ vault_kms_key_id }}"
+}
+
 listener "tcp" {
  address = "{{ vault_address}}:{{ vault_port }}"
  tls_cert_file = "/etc/vault.d/ssl/vault.cert"
